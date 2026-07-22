@@ -407,7 +407,7 @@ export async function updateTestcaseField(
     .select(field)
     .eq('id', id)
     .maybeSingle()
-  const oldVal = prev ? (prev as Record<string, string | null>)[field] : null
+  const oldVal = prev ? (prev as unknown as Record<string, string | null>)[field] : null
   const newVal = trimmed || null
 
   const updateData: Record<string, string | null> = {}

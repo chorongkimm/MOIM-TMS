@@ -61,6 +61,7 @@ export async function GET(request: NextRequest) {
 
   for (const tc of testcases) {
     const tcCode = `NO_${String(tc.tc_no).padStart(3, '0')}`
+    const proj = tc.projects as { name: string; tc_prefix: string } | null
     sheet.addRow({
       id: tcCode,
       title: tc.title,

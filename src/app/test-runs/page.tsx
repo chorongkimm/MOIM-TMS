@@ -77,7 +77,8 @@ export default async function TestRunsPage({ searchParams }: { searchParams: Sea
   }
   const folderMap = new Map<string, FolderStat>()
   for (const tc of tcs) {
-    const dom = tc.domains as { id: string; name: string; sort_order?: number } | null
+    const domRaw = tc.domains as { id: string; name: string; sort_order?: number } | { id: string; name: string; sort_order?: number }[] | null
+    const dom = Array.isArray(domRaw) ? (domRaw[0] ?? null) : domRaw
     const key = dom?.id ?? '__none__'
     if (!folderMap.has(key)) {
       folderMap.set(key, {

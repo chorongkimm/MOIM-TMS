@@ -3,7 +3,7 @@
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts'
 
 type ResultCount = {
-  key: 'PASS' | 'FAIL' | 'N/T' | 'N/A'
+  key: 'PASS' | 'FAIL' | 'N/T' | 'N/A' | 'Untested'
   label: string
   count: number
   color: string
@@ -50,7 +50,10 @@ export function ResultPieChart({ counts, total }: { counts: ResultCount[]; total
               ))}
             </Pie>
             <Tooltip
-              formatter={(value: number) => [`${value}건 (${Math.round((value / total) * 100)}%)`, '']}
+              formatter={(value) => {
+                const n = typeof value === 'number' ? value : Number(value ?? 0)
+                return [`${n}건 (${total > 0 ? Math.round((n / total) * 100) : 0}%)`, '']
+              }}
               contentStyle={{ fontSize: 12, borderRadius: 6, border: '1px solid #e5e7eb' }}
             />
           </PieChart>

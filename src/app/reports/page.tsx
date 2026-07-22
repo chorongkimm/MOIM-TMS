@@ -71,7 +71,8 @@ export default async function ReportsPage() {
   // 기능(폴더)별 TC 수
   const domainMap = new Map<string, { name: string; count: number }>()
   for (const tc of testcases) {
-    const dom = tc.domains as { name: string } | null
+    const domRaw = tc.domains as { name: string } | { name: string }[] | null
+    const dom = Array.isArray(domRaw) ? (domRaw[0] ?? null) : domRaw
     const key = dom?.name ?? '(폴더 미지정)'
     const cur = domainMap.get(key) ?? { name: key, count: 0 }
     cur.count++

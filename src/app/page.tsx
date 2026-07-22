@@ -38,7 +38,7 @@ export default async function Dashboard() {
   ])
 
   // jira_link 컬럼 없어서 실패한 경우 fallback (마이그레이션 미실행)
-  let testcasesRes = testcasesResFull
+  let testcasesRes: { data: unknown; error: unknown } = testcasesResFull
   if (testcasesResFull.error) {
     console.warn('[dashboard] jira_link 없이 fallback 쿼리 실행:', testcasesResFull.error.message)
     testcasesRes = await supabase
